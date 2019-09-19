@@ -1,13 +1,13 @@
 # Classes for Superhero Game
 class Ability:
-    def __init__(self, name, max_damage):
+    def __init__(self, name, attack_strength):
         """
         Parameters:
         name (String)
         max_damage(Integer)
         """
         self.name = name
-        self.max_damage = max_damage
+        self.max_damage = attack_strength
 
     def attack(self):
         """
@@ -34,7 +34,7 @@ class Armor:
 
 
 class Hero:
-    self.abilities = list()  # stores Ability instances
+    abilities = list()  # stores Ability instances
 
     def __init__(self, name, starting_health):
         """
