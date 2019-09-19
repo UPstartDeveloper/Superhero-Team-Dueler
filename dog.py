@@ -8,7 +8,3 @@ class Dog:
     # named functions inside class = methods
     def bark(self):
         print("Woof!")
-
-
-my_dog = Dog("Tommy", "WatchDog")
-my_dog.bark()
