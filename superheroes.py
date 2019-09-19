@@ -33,32 +33,21 @@ class Armor:
         self.max_block = max_block
 
     def block(self):
-        """
-        Parameters: none
-        """
-        pass
+        """Returns a random integer between 0 and max_block strength."""
+        return random.randint(0, self.max_block)
 
 
 class Hero:
-    abilities = list()  # stores Ability instances
-
-    def __init__(self, name, starting_health):
+    def __init__(self, name, starting_health=100):
         """
         Parameters:
         name (String)
         starting _health (Integer)
         """
+        self.abilities = list()  # stores Ability instances
+        self.armors = list()  # stores Armor instances
         self.name = name
-        self.starting_health = starting_health
-
-    def __init__(self, name):
-        """
-        Parameters:
-        name (String)
-        starting_health set to default value
-        """
-        self.name = name
-        self.starting_health = 100
+        self.starting_health = self.current_health = starting_health
 
         def add_ability(self, ability):
             """
@@ -101,6 +90,12 @@ class Hero:
 
 
 if __name__ == "__main__":
+    # testing Ability class
     ability = Ability("Debugging Ability", 20)
     print(ability.name)
     print(ability.attack())
+
+    # testing Hero class
+    my_hero = Hero("Alan Turing", 200)
+    print(my_hero.name)
+    print(my_hero.current_health)
