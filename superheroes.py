@@ -86,7 +86,7 @@ class Hero:
             """
             pass
 
-        def flight(self, opponent):
+        def fight(self, opponent):
             """
             Parameters:
             opponent (Hero)
