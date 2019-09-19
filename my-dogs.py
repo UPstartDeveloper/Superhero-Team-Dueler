@@ -11,3 +11,7 @@ print(my_other_dog.name)
 cartoon_dog = Dog("Scooby", "DetectiveDog")
 bull_dog = Dog("Thrasher", "K9")
 mythical_dog = Dog("Cerberus", "Harry Potter Dog")
+
+cartoon_dog.bark()
+bull_dog.sit()
+mythical_dog.roll_over()
