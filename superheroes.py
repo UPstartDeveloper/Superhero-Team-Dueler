@@ -49,44 +49,45 @@ class Hero:
         self.name = name
         self.starting_health = self.current_health = starting_health
 
-        def add_ability(self, ability):
-            """
-            Parameters:
-            ability (Ability)
-            """
-            self.abilities.append(ability)
+    def add_ability(self, ability):
+        """
+        Add ability to abilities list.
+        Parameters: ability (Ability)
+        """
+        self.abilities.append(ability)
 
-        def attack(self):
-            """
-            Parameters: none
-            """
-            pass
+    def attack(self):
+        """
+        Parameters: none
+        """
+        pass
 
-        def defend(self, incoming_damage):
-            """
-            Parameters:
-            incoming_damage (Integer)
-            """
+    def defend(self, incoming_damage):
+        """
+        Parameters:
+        incoming_damage (Integer)
+        """
+        pass
 
-        def take_damage(self, damage):
-            """
-            Parameters:
-            damage (Integer?)
-            """
-            pass
+    def take_damage(self, damage):
+        """
+        Parameters:
+        damage (Integer?)
+        """
+        pass
 
-        def is_alive(self):
-            """
-            Parameters: none
-            """
-            pass
+    def is_alive(self):
+        """
+        Parameters: none
+        """
+        pass
 
-        def fight(self, opponent):
-            """
-            Parameters:
-            opponent (Hero)
-            """
-            pass
+    def fight(self, opponent):
+        """
+        Parameters:
+        opponent (Hero)
+        """
+        pass
 
 
 if __name__ == "__main__":
@@ -99,3 +100,8 @@ if __name__ == "__main__":
     my_hero = Hero("Alan Turing", 200)
     print(my_hero.name)
     print(my_hero.current_health)
+
+    another_ability = Ability("Great Debugging", 50)
+    my_hero.add_ability(ability)
+    my_hero.add_ability(another_ability)
+    print(my_hero.abilities)
