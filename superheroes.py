@@ -1,3 +1,6 @@
+import random
+
+
 # Classes for Superhero Game
 class Ability:
     def __init__(self, name, attack_strength):
@@ -12,8 +15,11 @@ class Ability:
     def attack(self):
         """
         Parameters: none
+
+        Returns:
+        An int between 0 and the maximum attack value.
         """
-        pass
+        return random.randint(0, self.max_damage)
 
 
 class Armor:
@@ -92,3 +98,9 @@ class Hero:
             opponent (Hero)
             """
             pass
+
+
+if __name__ == "__main__":
+    ability = Ability("Debugging Ability", 20)
+    print(ability.name)
+    print(ability.attack())
