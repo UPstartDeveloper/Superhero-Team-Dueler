@@ -157,7 +157,7 @@ class Team(self):
     def view_all_heroes(self):
         '''List all heroes on the team.'''
         for hero in self.heroes:
-            print(hero)
+            print(hero.name)
 
 
 if __name__ == "__main__":
