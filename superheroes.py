@@ -281,3 +281,7 @@ class Arena:
         '''
         for i in range(team_size):
             self.team_two.add_hero(self.create_hero())
+
+    def battle(self):
+        '''Battle team_one and team_two together.'''
+        self.team_one.attack(self.team_two)
