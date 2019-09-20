@@ -56,42 +56,103 @@ class Hero:
         """
         self.abilities.append(ability)
 
+    def add_armor(self, armor):
+        '''Add armor to self.armors
+           armor: Armor object
+        '''
+        self.armors.append(armor)
+
     def attack(self):
+        """Calculate the total damage from all ability attacks.
+            return: total (Integer)
         """
-        Parameters: none
-        """
-        pass
+        total = 0
+        for ability in self.abilities:
+            total += ability.attack()
+        return total
 
     def defend(self, incoming_damage):
         """
-        Parameters:
-        incoming_damage (Integer)
+        Runs block method on each armor and returns sum of all block.
+        Parameters: incoming_damage (Integer)
+        Returns: total_defense (Integer)
         """
-        pass
+        total_defense = 0
+        if not len(self.armors) == 0:
+            for armor in self.armors:
+                total_defense += armor.block()
+        return total_defense
 
     def take_damage(self, damage):
         """
-        Parameters:
-        damage (Integer?)
+        Updates current_health by adding to it the
+        difference of damage and the defend() method.
+
+        Parameters: damage (Integer)
         """
-        pass
+        change_in_health = damage - self.defend(damage)
+        self.current_health -= change_in_health
 
     def is_alive(self):
-        """
-        Parameters: none
-        """
-        pass
+        """Return True and False based on current_health."""
+        return self.current_health >= 0
 
     def fight(self, opponent):
         """
         Parameters:
         opponent (Hero)
         """
-        pass
+        if len(self.abilities) and len(opponent.abilities) == 0:
+            print("Draw!")
+        else:
+            while self.is_alive() and opponent.is_alive():
+                opponent.take_damage(self.attack())
+                self.take_damage(opponent.attack())
+                # check after each exchange of attacks for who's still alive
+                if self.is_alive() and not opponent.is_alive():
+                    print(f"{self.name} won!")
+                elif not self.is_alive() and opponent.is_alive():
+                    print(f"{opponent.name} won!")
 
 
 if __name__ == "__main__":
-    # testing Ability class
+    # testing code
+    hero1 = Hero("Wonder Woman")
+    hero2 = Hero("Dumbledore")
+    ability1 = Ability("Super Speed", 300)
+    ability2 = Ability("Super Eyes", 130)
+    ability3 = Ability("Wizard Wand", 80)
+    ability4 = Ability("Wizard Beard", 20)
+    hero1.add_ability(ability1)
+    hero1.add_ability(ability2)
+    hero2.add_ability(ability3)
+    hero2.add_ability(ability4)
+    hero1.fight(hero2)
+    '''
+    hero = Hero("Grace Hopper", 200)
+    hero.take_damage(150)
+    print(hero.is_alive())
+    hero.take_damage(15000)
+    print(hero.is_alive())
+    '''
+    '''
+    hero = Hero("Grace Hopper", 200)
+    shield = Armor("Shield", 50)
+    hero.add_armor(shield)
+    hero.take_damage(50)
+    print(hero.current_health)
+    '''
+    '''
+    ability = Ability("Great Debugging", 50)
+    another_ability = Ability("Smarty Pants", 90)
+    hero = Hero("Grace Hopper", 200)
+    hero.add_ability(ability)
+    hero.add_ability(another_ability)
+    print(hero.attack())
+    '''
+
+    '''
+    Previous tests
     ability = Ability("Debugging Ability", 20)
     print(ability.name)
     print(ability.attack())
@@ -105,3 +166,4 @@ if __name__ == "__main__":
     my_hero.add_ability(ability)
     my_hero.add_ability(another_ability)
     print(my_hero.abilities)
+    '''
