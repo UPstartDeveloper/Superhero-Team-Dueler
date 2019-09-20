@@ -123,19 +123,19 @@ class Weapon(Ability):
         return random.randint(self.max_damage // 2, self.max_damage)
 
 
-class Team(self):
+class Team:
     def __init__(self, name):
         ''' Initialize a team with a team name.
             Parameter: name (str)
         '''
         self.name = name
-        heroes = list()  # an empty list of heroes on the team
+        self.heroes = list()  # an empty list of heroes on the team
 
     def add_hero(self, hero):
         '''Add a new hero to the team.
-           Parameter: hero (str)
+           Parameter: hero (Hero obj)
         '''
-        self.heroes.append(Hero(hero))
+        self.heroes.append(hero)
 
     def remove_hero(self, name):
         ''' Remove a hero from the team by their name.
