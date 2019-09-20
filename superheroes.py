@@ -233,3 +233,25 @@ class Arena:
         name = input("Enter the name of your new armor: ")
         block = input("Enter the blocking power: ")
         return Armor(name, block)
+
+    def create_hero(self):
+        '''Prompt user for Hero information
+            return Hero with values from user input.
+            '''
+        name = input("Enter a name for your new hero: ")
+        new_hero = Hero(name)
+        # loop for prompting abilities
+        choice = "Y"
+        while not (choice == "N" or choice == "n"):
+            choice = input("Would you like to add a new ability (Y/N)?")
+            new_hero.add_ability(self.create_ability())
+        # loop for prompting weapons
+        while not (choice == "N" or choice == "n"):
+            choice = input("Would you like to add a new weapon (Y/N)?")
+            new_hero.add_ability(self.create_weapon())
+        # loop for prompting armors
+        while not (choice == "N" or choice == "n"):
+            choice = input("Would you like to add a new armor (Y/N)?")
+            new_hero.add_armor(self.create_armor())
+
+        return new_hero
