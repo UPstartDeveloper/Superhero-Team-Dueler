@@ -48,6 +48,8 @@ class Hero:
         self.armors = list()  # stores Armor instances
         self.name = name
         self.starting_health = self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
 
     def add_ability(self, ability):
         """
@@ -111,8 +113,16 @@ class Hero:
                 # check after each exchange of attacks for who's still alive
                 if self.is_alive() and not opponent.is_alive():
                     print(f"{self.name} won!")
+                    self.add_kill()
+                    opponent.deaths += 1
                 elif not self.is_alive() and opponent.is_alive():
                     print(f"{opponent.name} won!")
+                    self.deaths += 1
+                    opponent.add_kill()
+
+    def add_kill(self):
+        '''Update kill count.'''
+        self.kill += 1
 
 
 class Weapon(Ability):
