@@ -104,7 +104,7 @@ class Hero:
         self.kills += num_kills
 
     def add_deaths(self, num_deaths):
-        '''Update death counts.'''
+        '''Update death count.'''
         self.deaths += num_deaths
 
     def fight(self, opponent):
@@ -121,12 +121,14 @@ class Hero:
                 # check after each exchange of attacks for who's still alive
                 if self.is_alive() and not opponent.is_alive():
                     print(f"{self.name} won!")
-                    self.add_kill()
-                    # opponent.deaths += 1
+                    # update kill/death stats
+                    self.add_kill(1)
+                    opponent.add_deaths(1)
                 elif not self.is_alive() and opponent.is_alive():
                     print(f"{opponent.name} won!")
-                    # self.deaths += 1
-                    # opponent.add_kill()
+                    # update kill/death stats
+                    self.add_deaths(1)
+                    opponent.add_kill(1)
 
 
 class Weapon(Ability):
@@ -172,6 +174,27 @@ class Team:
         '''List all heroes on the team.'''
         for hero in self.heroes:
             print(hero.name)
+
+    # methods for teams to attack/defend
+    def attack(self, other_team):
+        '''Battle each team against one another.'''
+        # Randomly selects a Hero from each team
+        hero = self.heroes[random.randint(0, len(self.heroes))]
+        enemy = other_team.heroes[random.randint(0, len(other_team.heroes))]
+
+        hero.fight(enemy)
+
+    def revive_heroes(self, heath=100):
+        '''Reset all heroes' health to starting_health.'''
+        for hero in self.heroes:
+            hero.current_health = health
+
+    def stats(self):
+        '''Print stats of the team.'''
+        print("Here are the kill/death ratios for your team's Heroes:")
+        for hero in self.heroes:
+            ratio = hero.kills/hero.deaths
+            print(f"{hero.name}: {ratio}")
 
 
 if __name__ == "__main__":
