@@ -201,3 +201,11 @@ class Team:
         for hero in self.heroes:
             ratio = hero.kills/hero.deaths
             print(f"{hero.name}: {ratio}")
+
+
+class Arena:
+    def __init__(self):
+        team_one_name = input("Enter name for Team One: ")
+        self.team_one = Team(team_one_name)
+        team_two_name = input("Enter name for Team Two: ")
+        self.team_two = Team(team_two_name)
