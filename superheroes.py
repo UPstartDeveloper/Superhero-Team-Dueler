@@ -115,7 +115,16 @@ class Hero:
                     print(f"{opponent.name} won!")
 
 
+class Weapon(Ability):
+    def attack(self):
+        """ This method returns a random value
+        between one half to the full attack power of the weapon.
+        """
+        return random.randint(self.max_damage // 2, self.max_damage)
+
+
 if __name__ == "__main__":
+    '''
     # testing code
     hero1 = Hero("Wonder Woman")
     hero2 = Hero("Dumbledore")
@@ -128,6 +137,7 @@ if __name__ == "__main__":
     hero2.add_ability(ability3)
     hero2.add_ability(ability4)
     hero1.fight(hero2)
+    '''
     '''
     hero = Hero("Grace Hopper", 200)
     hero.take_damage(150)
