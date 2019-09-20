@@ -198,9 +198,18 @@ class Team:
     def stats(self):
         '''Print stats of the team.'''
         print("Here are the kill/death ratios for your team's Heroes:")
+        ratios = list()  # stores all ratios for the team
         for hero in self.heroes:
             ratio = hero.kills/hero.deaths
+            ratios.append(ratio)
             print(f"{hero.name}: {ratio}")
+
+        # calculates and prints average kill/death ratio
+        sum = 0
+        for ratio in ratios:
+            sum += ratio
+        avg = sum/len(ratios)
+        print(f"Average kill/death ratio: {avg}")
 
 
 class Arena:
@@ -285,3 +294,45 @@ class Arena:
     def battle(self):
         '''Battle team_one and team_two together.'''
         self.team_one.attack(self.team_two)
+
+    def show_stats(self):
+        '''Prints team statisitics to terminal.'''
+
+        # lists to contain names of all alive heroes on teams
+        team_one_live_heroes_names = list()
+        team_two_live_heroes_names = list()
+
+        # winning team decided by whom has more alive heroes
+        live_one_heroes = 0
+        for hero in self.team_one.heroes:
+            if hero.is_alive():
+                live_one_heroes += 1
+                team_one_live_heroes_names.append(hero.name)
+
+        live_two_heroes = 0
+        for hero in self.team_two.heroes:
+            if hero.is_alive():
+                live_two_heroes += 1
+                team_two_live_heroes_names.append(hero.name)
+
+        # decides which team won
+        if live_one_heroes > live_two_heroes:
+            print("Result: Team One wins!")
+        elif live_two_heroes > live_one_heroes:
+            print("Result: Team Two wins!")
+        else:
+            print("Result: no team wins!")
+
+        # showing stats for first team
+        print("Stats for Team One:")
+        self.team_one.stats()
+        print("These are the Heroes who are Still Alive on Team One:")
+        for name in team_one_live_heroes_names:
+            print(name)
+
+        # showing stats for first team
+        print("Stats for Team Two:")
+        self.team_two.stats()
+        print("These are the Heroes who are Still Alive on Team Two:")
+        for name in team_two_live_heroes_names:
+            print(name)
