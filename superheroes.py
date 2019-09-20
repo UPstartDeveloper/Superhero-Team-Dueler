@@ -120,9 +120,9 @@ class Hero:
                     self.deaths += 1
                     opponent.add_kill()
 
-    def add_kill(self):
+    def add_kill(self, num_kills):
         '''Update kill count.'''
-        self.kill += 1
+        self.kill += num_kills
 
 
 class Weapon(Ability):
