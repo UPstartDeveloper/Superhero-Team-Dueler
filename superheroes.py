@@ -209,3 +209,11 @@ class Arena:
         self.team_one = Team(team_one_name)
         team_two_name = input("Enter name for Team Two: ")
         self.team_two = Team(team_two_name)
+
+    def create_ability(self):
+        '''Prompt for Ability information.
+            return Ability with values from user Input.
+        '''
+        name = input("Enter the name for your new ability: ")
+        strength = input("Enter the attack strength: ")
+        return Ability(name, strength)
