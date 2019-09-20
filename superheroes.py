@@ -73,10 +73,10 @@ class Hero:
             total += ability.attack()
         return total
 
-    def defend(self, incoming_damage):
+    def defend(self):
         """
         Runs block method on each armor and returns sum of all block.
-        Parameters: incoming_damage (Integer)
+        Parameters: none
         Returns: total_defense (Integer)
         """
         total_defense = 0
@@ -92,8 +92,8 @@ class Hero:
 
         Parameters: damage (Integer)
         """
-        change_in_health = damage - self.defend(damage)
-        self.current_health -= change_in_health
+        change_in_health = self.defend() - damage
+        self.current_health += change_in_health
 
     def is_alive(self):
         """Return True and False based on current_health."""
@@ -112,7 +112,7 @@ class Hero:
         Parameters:
         opponent (Hero)
         """
-        if len(self.abilities) and len(opponent.abilities) == 0:
+        if len(self.abilities) == 0 and len(opponent.abilities) == 0:
             print("Draw!")
         else:
             while self.is_alive() and opponent.is_alive():
@@ -179,15 +179,15 @@ class Team:
     def attack(self, other_team):
         '''Battle each team against one another.'''
         # Randomly selects a Hero from each team
-        hero = self.heroes[random.randint(0, len(self.heroes))]
-        enemy = other_team.heroes[random.randint(0, len(other_team.heroes))]
+        hero = self.heroes[random.randint(0, len(self.heroes) - 1)]
+        enemy = other_team.heroes[random.randint(0, len(other_team.heroes) - 1)]
 
         hero.fight(enemy)
 
     def revive_heroes(self, heath=100):
         '''Reset all heroes' health to starting_health.'''
         for hero in self.heroes:
-            hero.current_health = health
+            hero.current_health = hero.starting_health
 
     def stats(self):
         '''Print stats of the team.'''
