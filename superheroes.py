@@ -107,6 +107,10 @@ class Hero:
         '''Update death count.'''
         self.deaths += num_deaths
 
+    def add_weapon(self, weapon):
+        '''Add weapon (Weapon object) to self.abilities.'''
+        self.abilities.append(weapon)
+
     def fight(self, opponent):
         """
         Parameters:
@@ -179,8 +183,10 @@ class Team:
     def attack(self, other_team):
         '''Battle each team against one another.'''
         # Randomly selects a Hero from each team
-        hero = self.heroes[random.randint(0, len(self.heroes) - 1)]
-        enemy = other_team.heroes[random.randint(0, len(other_team.heroes) - 1)]
+        max_index = len(self.heroes) - 1  # last index position in heroes list
+        hero = self.heroes[random.randint(0, max_index)]
+        max_index = len(other_team.heroes) - 1
+        enemy = other_team.heroes[random.randint(0, max_index)]
 
         hero.fight(enemy)
 
