@@ -205,10 +205,8 @@ class Team:
 
 class Arena:
     def __init__(self):
-        team_one_name = input("Enter name for Team One: ")
-        self.team_one = Team(team_one_name)
-        team_two_name = input("Enter name for Team Two: ")
-        self.team_two = Team(team_two_name)
+        self.team_one = None
+        self.team_two = None
 
     def create_ability(self):
         '''Prompt for Ability information.
@@ -255,3 +253,31 @@ class Arena:
             new_hero.add_armor(self.create_armor())
 
         return new_hero
+
+    def build_team_one(self):
+        '''Prompt the user to build team_one.'''
+        team_one_name = input("Enter name for Team One: ")
+        self.team_one = Team(team_one_name)
+        team_size = input("Enter the size of this team: ")
+
+        '''
+        for each hero requested by user,
+        create a Hero object
+        and append it to the heroes list in the Team object
+        '''
+        for i in range(team_size):
+            self.team_one.add_hero(self.create_hero())
+
+    def build_team_two(self):
+        '''Prompt the user to build team_two.'''
+        team_two_name = input("Enter the name for Team Two: ")
+        self.team_two = Team(team_two_name)
+        team_size = input("Enter the size of this team: ")
+
+        '''
+        for each hero requested by user,
+        create a Hero object
+        and append it to the heroes list in the Team object
+        '''
+        for i in range(team_size):
+            self.team_two.add_hero(self.create_hero())
