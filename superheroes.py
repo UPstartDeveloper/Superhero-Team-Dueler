@@ -99,6 +99,14 @@ class Hero:
         """Return True and False based on current_health."""
         return self.current_health >= 0
 
+    def add_kill(self, num_kills):
+        '''Update kill count.'''
+        self.kills += num_kills
+
+    def add_deaths(self, num_deaths):
+        '''Update death counts.'''
+        self.deaths += num_deaths
+
     def fight(self, opponent):
         """
         Parameters:
@@ -114,15 +122,11 @@ class Hero:
                 if self.is_alive() and not opponent.is_alive():
                     print(f"{self.name} won!")
                     self.add_kill()
-                    opponent.deaths += 1
+                    # opponent.deaths += 1
                 elif not self.is_alive() and opponent.is_alive():
                     print(f"{opponent.name} won!")
-                    self.deaths += 1
-                    opponent.add_kill()
-
-    def add_kill(self, num_kills):
-        '''Update kill count.'''
-        self.kill += num_kills
+                    # self.deaths += 1
+                    # opponent.add_kill()
 
 
 class Weapon(Ability):
