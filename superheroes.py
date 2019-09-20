@@ -139,11 +139,20 @@ class Team(self):
 
     def remove_hero(self, name):
         ''' Remove a hero from the team by their name.
+            If the hero isn't found, return 0.
             Parameter: name (str)
         '''
+        # check if the Hero is present
+        hero_names = list()
         for hero in self.heroes:
-            if hero.name == name:
-                self.heroes.remove(hero)
+            hero_names.append(hero.name)
+        if name not in hero_names:
+            return 0
+        # removes a Hero
+        else:
+            for hero in self.heroes:
+                if hero.name == name:
+                    self.heroes.remove(hero)
 
     def view_all_heroes(self):
         '''List all heroes on the team.'''
