@@ -225,3 +225,11 @@ class Arena:
         name = input("Enter the name of the new weapon: ")
         strength = input("Enter the strength: ")
         return Weapon(name, strength)
+
+    def create_armor(self):
+        '''Prompt user for Armor information.
+            return Armor with values from user input.
+        '''
+        name = input("Enter the name of your new armor: ")
+        block = input("Enter the blocking power: ")
+        return Armor(name, block)
