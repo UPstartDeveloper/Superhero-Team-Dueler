@@ -217,6 +217,11 @@ class Team:
         else:
             print("Average kill/death ratio: N/A")
 
+    def remove_all_heroes(self):
+        '''A function to delete all heroes on a team.'''
+        for hero in self.heroes:
+            self.heroes.remove(hero)
+
 
 class Arena:
     def __init__(self):
@@ -362,6 +367,13 @@ class Arena:
         for name in team_two_live_heroes_names:
             print(name)
 
+    def recreate_teams(self):
+        '''Removes all heroes from each team, and then rebuilds them.'''
+        self.team_one.remove_all_heroes()
+        self.build_team_one()
+        self.team_two.remove_all_heroes()
+        self.build_team_two()
+
 
 if __name__ == "__main__":
     game_is_running = True
@@ -385,3 +397,7 @@ if __name__ == "__main__":
             # Revive heroes to play again
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
+
+        reset_choice = input("Would you like to reset the teams (Y/N)?")
+        if reset_choice == "Y" or reset_choice == "y":
+            arena.recreate_teams()
