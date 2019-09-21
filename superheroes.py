@@ -247,6 +247,26 @@ class Arena:
         block = int(input("Enter the blocking power: "))
         return Armor(name, block)
 
+    def prompt_for(self, attribute):
+        '''Helper function for create_hero(). Continually prompts user for
+           abilities/weapons/armors for their new Hero.
+
+           Parameter: attribute (str): whichever of the three Hero attributes
+                      that the user is currently being prompted to give.
+            Returns: nothing
+        '''
+        while not (choice == "N" or choice == "n"):
+            choice = input(f"Would you like to add a new {attribute} (Y/N)?")
+            if (choice == "Y" or choice == "y") and attribute == "ability":
+                new_ability = self.create_ability()
+                new_hero.add_ability(new_ability)
+            elif (choice == "Y" or choice == "y") and attribute == "weapon":
+                new_weapon = self.create_weapon()
+                new_hero.add_ability(new_weapon)
+            elif (choice == "Y" or choice == "y") and attribute == "armor":
+                new_armor = self.create_armor()
+                new_hero.add_armor(new_armor)
+
     def create_hero(self):
         '''Prompt user for Hero information
             return Hero with values from user input.
@@ -254,26 +274,11 @@ class Arena:
         name = input("Enter a name for your new hero: ")
         new_hero = Hero(name)
         # loop for prompting abilities
-        choice = "Y"
-        while not (choice == "N" or choice == "n"):
-            choice = input("Would you like to add a new ability (Y/N)?")
-            if choice == "Y" or choice == "y":
-                new_ability = self.create_ability()
-                new_hero.add_ability(new_ability)
+        self.prompt_for("ability")
         # loop for prompting weapons
-        choice = "Y"
-        while not (choice == "N" or choice == "n"):
-            choice = input("Would you like to add a new weapon (Y/N)?")
-            if choice == "Y" or choice == "y":
-                new_weapon = self.create_weapon()
-                new_hero.add_ability(new_weapon)
+        self.prompt_for("weapon")
         # loop for prompting armors
-        choice = "Y"
-        while not (choice == "N" or choice == "n"):
-            choice = input("Would you like to add a new armor (Y/N)?")
-            if choice == "Y" or choice == "y":
-                new_armor = self.create_armor()
-                new_hero.add_armor(new_armor)
+        self.prompt_for("armor")
 
         return new_hero
 
@@ -341,7 +346,7 @@ class Arena:
         elif live_two_heroes > live_one_heroes:
             print("Result: Team Two wins!")
         else:
-            print("Result: no team wins!")
+            print("Result: No Team wins!")
 
         # showing stats for first team
         print("Stats for Team One:")
