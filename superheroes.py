@@ -1,6 +1,11 @@
 import random
 
 
+def divide():
+    """Add a dashed line to separate output."""
+    print("----------------------------------------")
+
+
 # Classes for Superhero Game
 class Ability:
     def __init__(self, name, attack_strength):
@@ -370,9 +375,27 @@ class Arena:
     def recreate_teams(self):
         '''Removes all heroes from each team, and then rebuilds them.'''
         self.team_one.remove_all_heroes()
-        self.build_team_one()
         self.team_two.remove_all_heroes()
+        self.build_team_one()
         self.build_team_two()
+
+    def edit_team(self, selected_team):
+        '''Changes parts of the team which user selects.
+           Param: selected_team (Team): Team being changed
+        '''
+        divide()
+        see_heroes = input("View the heroes on this Team (Y/N)?")
+        if see_heroes.lower() == "y":
+            selected_team.view_all_heroes()
+        divide()
+        # check if the user enters a valid Hero
+        hero_names = list()
+        for hero in selected_team.heroes:
+            hero_names.append(hero.name)
+        hero_choice = input("Enter the Hero you'd like to change: ")
+        while hero_choice not in hero_names:
+            hero_choice = input("Name cannot be found. Please try again: ")
+        divide()
 
 
 if __name__ == "__main__":
@@ -397,7 +420,16 @@ if __name__ == "__main__":
             # Revive heroes to play again
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
-
-        reset_choice = input("Would you like to reset the teams (Y/N)?")
-        if reset_choice == "Y" or reset_choice == "y":
-            arena.recreate_teams()
+            # Ask user if they want to reset the teams
+            reset_choice = input("Would you like to reset the teams (Y/N)?")
+            if reset_choice.lower() == "y":
+                arena.recreate_teams()
+            elif reset_choice.lower() == "N":
+                # Ask user if they want to change the teams
+                edit_choice = input("Would you like to edit the teams (Y/N)? ")
+                if edit_choice.lower() == "y":
+                    team_choice = input("Enter the Team you want to edit: ")
+                    if team_choice == arena.team_one.name:
+                        arena.edit_team(arena.team_one)
+                    elif team_choice == arena.team_two.name:
+                        arena.edit_team(arena.team_two)
