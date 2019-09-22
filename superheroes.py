@@ -139,6 +139,95 @@ class Hero:
                     self.add_deaths(1)
                     opponent.add_kill(1)
 
+    def str_to_object(self, name, object_type):
+        '''This helper function searches for an object of a certain type,
+           and returns the object that matches the name.
+           Parameter: name(str)
+                      object_type(Ability, Weapon, Armor)
+           Returns: type(object_type)
+        '''
+        # choose which of Hero's property lists to search
+        if object_type == "Ability" or "Weapon":
+            for ability in self.abilities:
+                if name == ability.name:
+                    return ability
+        elif object_type == "Armor":
+            for armor in self.armors:
+                if name == armor.name:
+                    return armor
+
+        def capture_index(self, name, object_type):
+            '''This function returns the index position where an
+               Ability/Weapon/Armor object stored in in respective list.
+            '''
+            if object_type == "Ability" or object_type == "Weapon":
+                for i in range(len(self.abilities)):
+                    if name == self.abilities[i].name:
+                        return i
+            elif object_type == "Armor":
+                if name == self.abilities[i].name:
+                    return i
+
+    def edit_abilities(self):
+        '''Prompts user for information and adjusts self.abilites.'''
+        choice = input("Do you know the abilities of this Hero (Y/N)? ")
+        if not choice.lower() == "y":
+            # print all abilities
+            divide()
+            print("Here are the Abilities available for this Hero:")
+            for ability in self.abilities:
+                if not type(ability) == Weapon:
+                    print(ability.name)
+            divide()
+        else:
+            choice = input("Which Ability would you like to change? \n" +
+                           "Enter the name here. Enter Q to finish: ")
+            while not choice.upper() == "Q":
+                # check to make sure valid Ability entered
+                abilities = list()
+                for ability in self.abilities:
+                    abilities.append(ability.name)
+                while choice not in abilities:
+                    choice = input("Ability not found. Please try again: ")
+                else:  # valid Ability entered
+                    index = self.capture_index(choice, "Ability")
+                    current_obj = self.abilities[index]
+                    op_choice = input("What would you like to change? \n" +
+                                      "N = name of Ability \n" +
+                                      "A = attack strength of Ability \n" +
+                                      "D = Delete this Ability \n" +
+                                      "Please select one: ")
+                    if op_choice.upper() == "N":
+                        new_name = input("Please enter a new name: ")
+                        # replaces Ability object
+                        new_obj = Ability(new_name, current_obj.max_damage)
+                        self.abilities[index] = new_obj
+                        assert new_name = self.abilities[index].name, (
+                            "Name change failed!")
+                        divide()
+                    elif op_choice.upper() == "A":
+                        new_stren = input("Enter a new attack strength: ")
+                        self.abilities[index] = Ability(choice, new_stren)
+                        err_msg = "Attack strength change failed!"
+                        assert new_stren = self.abilities[index].max_damage, (
+                            err_msg)
+                        divide()
+                    elif op_choice.upper() == "D":
+                        choice = self.str_to_object(choice, Ability)
+                        self.abilities.pop(index)
+                        print("Ability has been removed!")
+                        divide()
+                    else:
+                        print("Sorry, that choice is invalid.")
+
+    def edit_weapons(self):
+        '''Prompts user for information and edits Weapons in self.abilites.'''
+        pass
+
+    def edit_armors(self):
+        '''Prompts user for information and adjusts self.armors.'''
+        pass
+
 
 class Weapon(Ability):
     def attack(self):
