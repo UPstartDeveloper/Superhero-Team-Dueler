@@ -392,10 +392,21 @@ class Arena:
         hero_names = list()
         for hero in selected_team.heroes:
             hero_names.append(hero.name)
-        hero_choice = input("Enter the Hero you'd like to change: ")
-        while hero_choice not in hero_names:
-            hero_choice = input("Name cannot be found. Please try again: ")
-        divide()
+        num_changes = input("Enter the number of Heroes you'd like to change ")
+        for i in num_changes:
+            hero_choice = input(f"Enter Hero #{i} you'd like to change: ")
+            while hero_choice not in hero_names:
+                hero_choice = input("Name cannot be found. Please try again: ")
+            print("Name found! Success!")
+            divide()
+            attribute_choice = input("Which property would you like to change?\n" +
+                                     "A = hero's abilites \n" +
+                                     "W = hero's weapons \n" +
+                                     "AR = hero's armors \n" +
+                                     "Please enter your choice: ")
+            if attribute_choice == "A":
+            elif attribute_choice == "W":
+            elif attribute_choice == "AR":
 
 
 if __name__ == "__main__":
