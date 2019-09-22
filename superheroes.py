@@ -397,6 +397,8 @@ class Arena:
             hero_choice = input(f"Enter Hero #{i} you'd like to change: ")
             while hero_choice not in hero_names:
                 hero_choice = input("Name cannot be found. Please try again: ")
+            # pull the Hero out of the Team's hero
+            # list by its name, store in hero_choice
             print("Name found! Success!")
             divide()
             attribute_choice = input("Which property would you like to change?\n" +
@@ -405,9 +407,11 @@ class Arena:
                                      "AR = hero's armors \n" +
                                      "Please enter your choice: ")
             if attribute_choice == "A":
+                # call edit_abilities method on the Hero (need to add to class)
             elif attribute_choice == "W":
+                # call edit_weapons method on the Hero (need to add to class)
             elif attribute_choice == "AR":
-
+                # call edit_armors method on the Hero (need to add to class)
 
 if __name__ == "__main__":
     game_is_running = True
