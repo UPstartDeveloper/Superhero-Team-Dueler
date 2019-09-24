@@ -196,11 +196,11 @@ class Hero:
         # decides which prompts to show user
         prompts = list()  # stores prompt strings
         if power_type == "Ability":
-            prompts = provide_prompts("Ability", "Abilities")
+            prompts = self.provide_prompts("Ability", "Abilities")
         elif power_type == "Weapon":
-            prompts = provide_prompts("Weapon", "Weapons")
+            prompts = self.provide_prompts("Weapon", "Weapons")
         elif power_type == "Armor":
-            prompts = provide_prompts("Armor", "Armors")
+            prompts = self.provide_prompts("Armor", "Armors")
 
         choice = input(prompts[0])
         if not choice.lower() == "y":
@@ -245,15 +245,14 @@ class Hero:
                         # replaces Ability object
                         new_obj = Ability(new_name, current_obj.max_damage)
                         list_to_change[index] = new_obj
-                        assert new_name = list_to_change[index].name, (
-                            "Name change failed!")
+                        assert new_name == list_to_change[index].name
                         divide()
                     elif op_choice.upper() == "A":
                         new_stren = input("Enter a new attack strength: ")
                         list_to_change[index] = Ability(choice, new_stren)
                         err_msg = "Attack strength change failed!"
-                        assert new_stren = list_to_change[index].max_damage, (
-                            err_msg)
+                        assert new_stren == list_to_change[index].max_damage, (
+                                err_msg)
                         divide()
                     elif op_choice.upper() == "D":
                         list_to_change.pop(index)
@@ -369,8 +368,8 @@ class Arena:
             return Weapon with values from user input.
         '''
         name = input("Enter the name of the new weapon: ")
-        strength = int(input("Enter the strength: "))
-        return Weapon(name, strength)
+        strength = input("Enter the strength: ")
+        return Weapon(name, int(strength))
 
     def create_armor(self):
         '''Prompt user for Armor information.
@@ -380,25 +379,27 @@ class Arena:
         block = int(input("Enter the blocking power: "))
         return Armor(name, block)
 
-    def prompt_for(self, attribute):
+    def prompt_for(self, hero, attribute):
         '''Helper function for create_hero(). Continually prompts user for
            abilities/weapons/armors for their new Hero.
 
            Parameter: attribute (str): whichever of the three Hero attributes
                       that the user is currently being prompted to give.
+                      hero (Hero): object whose properties are being changed.
             Returns: nothing
         '''
+        choice = ""
         while not (choice == "N" or choice == "n"):
             choice = input(f"Would you like to add a new {attribute} (Y/N)?")
             if (choice == "Y" or choice == "y") and attribute == "ability":
                 new_ability = self.create_ability()
-                new_hero.add_ability(new_ability)
+                hero.add_ability(new_ability)
             elif (choice == "Y" or choice == "y") and attribute == "weapon":
                 new_weapon = self.create_weapon()
-                new_hero.add_ability(new_weapon)
+                hero.add_ability(new_weapon)
             elif (choice == "Y" or choice == "y") and attribute == "armor":
                 new_armor = self.create_armor()
-                new_hero.add_armor(new_armor)
+                hero.add_armor(new_armor)
 
     def create_hero(self):
         '''Prompt user for Hero information
@@ -407,11 +408,11 @@ class Arena:
         name = input("Enter a name for your new hero: ")
         new_hero = Hero(name)
         # loop for prompting abilities
-        self.prompt_for("ability")
+        self.prompt_for(new_hero, "ability")
         # loop for prompting weapons
-        self.prompt_for("weapon")
+        self.prompt_for(new_hero, "weapon")
         # loop for prompting armors
-        self.prompt_for("armor")
+        self.prompt_for(new_hero, "armor")
 
         return new_hero
 
@@ -485,13 +486,16 @@ class Arena:
         print("Stats for Team One:")
         self.team_one.stats()
         print("These are the Heroes who are Still Alive on Team One:")
+        divide()
         for name in team_one_live_heroes_names:
             print(name)
+        divide()
 
         # showing stats for first team
         print("Stats for Team Two:")
         self.team_two.stats()
         print("These are the Heroes who are Still Alive on Team Two:")
+        divide()
         for name in team_two_live_heroes_names:
             print(name)
 
@@ -523,10 +527,9 @@ class Arena:
             print("Name found! Success!")
             # when the Hero is found, pull the Hero out of the Team's hero list
             # and store it in hero_choice
-            else:
-                for hero in selected_team.heroes:
-                    if hero_choice == hero.name:
-                        hero_choice = hero  # changes from str to Hero type
+            for hero in selected_team.heroes:
+                if hero_choice == hero.name:
+                    hero_choice = hero  # changes from str to Hero type
             divide()
             attribute_choice = input("Which property is being changed? \n" +
                                      "A = hero's abilites \n" +
@@ -534,14 +537,11 @@ class Arena:
                                      "AR = hero's armors \n" +
                                      "Please enter your choice: ")
             if attribute_choice == "A":
-                # call edit_abilities method on the Hero (need to add to class)
-                pass
+                hero_choice.edit_powers("Ability")
             elif attribute_choice == "W":
-                # call edit_weapons method on the Hero (need to add to class)
-                pass
+                hero_choice.edit_powers("Weapon")
             elif attribute_choice == "AR":
-                # call edit_armors method on the Hero (need to add to class)
-                pass
+                hero_choice.edit_powers("Armor")
 
 
 if __name__ == "__main__":
@@ -570,7 +570,7 @@ if __name__ == "__main__":
             reset_choice = input("Would you like to reset the teams (Y/N)?")
             if reset_choice.lower() == "y":
                 arena.recreate_teams()
-            elif reset_choice.lower() == "N":
+            elif reset_choice.upper() == "N":
                 # Ask user if they want to change the teams
                 edit_choice = input("Would you like to edit the teams (Y/N)? ")
                 if edit_choice.lower() == "y":
@@ -579,3 +579,7 @@ if __name__ == "__main__":
                         arena.edit_team(arena.team_one)
                     elif team_choice == arena.team_two.name:
                         arena.edit_team(arena.team_two)
+                else:
+                    # TODO: ask user if they would like to end game
+                    # TODO: make it so user can save game state
+                    pass
