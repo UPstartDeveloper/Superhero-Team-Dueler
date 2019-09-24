@@ -168,34 +168,53 @@ class Hero:
                 if name == self.abilities[i].name:
                     return i
 
+    def provide_prompts(self, obj_type, plural):
+        '''A helper method to provide prompts to use in edit methods.
+           Params:
+           obj_type (str): type of object being edited
+           plural (str): the plural form of the noun corresponding w/ obj_type
+           Returns: prompts (list): contains common prompts
+                    used through edit_ methods in Hero class
+        '''
+        prompts = [f"Do you know the {plural} of this Hero (Y/N)? ",
+                   f"Here are the {plural} available for this Hero:",
+                   f"Which {obj_type} would you like to change? \n",
+                   f"Enter the name here. Enter Q to finish: ",
+                   f"{obj_type} not found. Please try again: ",
+                   f"N = name of {obj_type} \n",
+                   f"A = attack strength of {obj_type} \n",
+                   f"D = Delete this {obj_type} \n",
+                   f"{obj_type} has been removed!"]
+        return prompts
+
     def edit_abilities(self):
         '''Prompts user for information and adjusts self.abilites.'''
-        choice = input("Do you know the abilities of this Hero (Y/N)? ")
+        prompts = provide_prompts("Ability", "Abilities")
+        choice = input(prompts[0])
         if not choice.lower() == "y":
             # print all abilities
             divide()
-            print("Here are the Abilities available for this Hero:")
+            print(prompts[1])
             for ability in self.abilities:
                 if not type(ability) == Weapon:
                     print(ability.name)
             divide()
         else:
-            choice = input("Which Ability would you like to change? \n" +
-                           "Enter the name here. Enter Q to finish: ")
+            choice = input(prompts[2] + prompts[3])
             while not choice.upper() == "Q":
                 # check to make sure valid Ability entered
                 abilities = list()
                 for ability in self.abilities:
                     abilities.append(ability.name)
                 while choice not in abilities:
-                    choice = input("Ability not found. Please try again: ")
+                    choice = input(prompts[4])
                 else:  # valid Ability entered
                     index = self.capture_index(choice, "Ability")
                     current_obj = self.abilities[index]
                     op_choice = input("What would you like to change? \n" +
-                                      "N = name of Ability \n" +
-                                      "A = attack strength of Ability \n" +
-                                      "D = Delete this Ability \n" +
+                                      prompts[5] +
+                                      prompts[6] +
+                                      prompts[7] +
                                       "Please select one: ")
                     if op_choice.upper() == "N":
                         new_name = input("Please enter a new name: ")
@@ -214,11 +233,11 @@ class Hero:
                         divide()
                     elif op_choice.upper() == "D":
                         self.abilities.pop(index)
-                        print("Ability has been removed!")
+                        print(prompts[8])  # print removal message
                         divide()
                     else:
                         print("Sorry, that choice is invalid.")
-
+    """
     def edit_weapons(self):
         '''Prompts user for information and edits Weapons in self.abilites.'''
         choice = input("Do you know the weapons of this Hero (Y/N)? ")
@@ -273,7 +292,7 @@ class Hero:
     def edit_armors(self):
         '''Prompts user for information and adjusts self.armors.'''
         pass
-
+    """
 
 class Weapon(Ability):
     def attack(self):
