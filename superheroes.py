@@ -203,7 +203,7 @@ class Hero:
             prompts = self.provide_prompts("Armor", "Armors")
 
         choice = input(prompts[0])
-        if not choice.lower() == "y":
+        if choice.lower() == "n":  # user doesn't know all abilities
             # print all abilities
             divide()
             print(prompts[1])
@@ -223,43 +223,43 @@ class Hero:
                 elif power_type == "Armor":
                     print(power.name)
             divide()
-        else:
-            choice = input(prompts[2] + prompts[3])
-            while not choice.upper() == "Q":
-                # check to make sure valid Ability/Armor entered
-                names_of_powers = list()
-                for power in list_to_change:
-                    names_of_powers.append(ability.name)
-                while choice not in names_of_powers:
-                    choice = input(prompts[4])
-                else:  # valid object entered
-                    index = self.capture_index(choice, power_type)
-                    current_obj = list_to_change[index]
-                    op_choice = input("What would you like to change? \n" +
-                                      prompts[5] +
-                                      prompts[6] +
-                                      prompts[7] +
-                                      "Please select one: ")
-                    if op_choice.upper() == "N":
-                        new_name = input("Please enter a new name: ")
-                        # replaces Ability object
-                        new_obj = Ability(new_name, current_obj.max_damage)
-                        list_to_change[index] = new_obj
-                        assert new_name == list_to_change[index].name
-                        divide()
-                    elif op_choice.upper() == "A":
-                        new_stren = input("Enter a new attack strength: ")
-                        list_to_change[index] = Ability(choice, new_stren)
-                        err_msg = "Attack strength change failed!"
-                        assert new_stren == list_to_change[index].max_damage, (
-                                err_msg)
-                        divide()
-                    elif op_choice.upper() == "D":
-                        list_to_change.pop(index)
-                        print(prompts[8])  # print removal message
-                        divide()
-                    else:
-                        print("Sorry, that choice is invalid.")
+
+        choice = input(prompts[2] + prompts[3])
+        while not choice.upper() == "Q":
+            # check to make sure valid Ability/Armor entered
+            names_of_powers = list()
+            for power in list_to_change:
+                names_of_powers.append(ability.name)
+            while choice not in names_of_powers:
+                choice = input(prompts[4])
+            else:  # valid object entered
+                index = self.capture_index(choice, power_type)
+                current_obj = list_to_change[index]
+                op_choice = input("What would you like to change? \n" +
+                                  prompts[5] +
+                                  prompts[6] +
+                                  prompts[7] +
+                                  "Please select one: ")
+                if op_choice.upper() == "N":
+                    new_name = input("Please enter a new name: ")
+                    # replaces Ability object
+                    new_obj = Ability(new_name, current_obj.max_damage)
+                    list_to_change[index] = new_obj
+                    assert new_name == list_to_change[index].name
+                    divide()
+                elif op_choice.upper() == "A":
+                    new_stren = input("Enter a new attack strength: ")
+                    list_to_change[index] = Ability(choice, new_stren)
+                    err_msg = "Attack strength change failed!"
+                    assert new_stren == list_to_change[index].max_damage, (
+                            err_msg)
+                    divide()
+                elif op_choice.upper() == "D":
+                    list_to_change.pop(index)
+                    print(prompts[8])  # print removal message
+                    divide()
+                else:
+                    print("Sorry, that choice is invalid.")
 
 
 class Weapon(Ability):
@@ -556,7 +556,7 @@ if __name__ == "__main__":
     while game_is_running:
         arena.team_battle()
         arena.show_stats()
-        play_again = input("Play Again Y or N: ")
+        play_again = input("Play Again? Y or N: ")
 
         # Check for Player Input
         if play_again.lower() == "n":
