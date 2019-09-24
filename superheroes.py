@@ -187,30 +187,54 @@ class Hero:
                    f"{obj_type} has been removed!"]
         return prompts
 
-    def edit_abilities(self):
-        '''Prompts user for information and adjusts self.abilites.'''
-        prompts = provide_prompts("Ability", "Abilities")
+    def edit_powers(self, power_type):
+        '''Prompts user for information and adjusts self.abilites,
+           or self.armors.
+           Param: power_type (str): specifies if Ability, Weapon, or Armor
+                  is being edited.
+        '''
+        # decides which prompts to show user
+        prompts = list()  # stores prompt strings
+        if power_type == "Ability":
+            prompts = provide_prompts("Ability", "Abilities")
+        elif power_type == "Weapon":
+            prompts = provide_prompts("Weapon", "Weapons")
+        elif power_type == "Armor":
+            prompts = provide_prompts("Armor", "Armors")
+
         choice = input(prompts[0])
         if not choice.lower() == "y":
             # print all abilities
             divide()
             print(prompts[1])
-            for ability in self.abilities:
-                if not type(ability) == Weapon:
-                    print(ability.name)
+            list_to_change = list()  # stores self.abilities or self.armors
+            if power_type == "Ability" or power_type == "Weapon":
+                list_to_change = self.abilities
+            elif power_type == "Armor":
+                list_to_change = self.armors
+            #  printing the powers in their respective list
+            for power in list_to_change:
+                if power_type == "Ability":
+                    if type(power) == Ability:
+                        print(power.name)
+                elif power_type == "Weapon":
+                    if type(power) == Weapon:
+                        print(power.name)
+                elif power_type == "Armor":
+                    print(power.name)
             divide()
         else:
             choice = input(prompts[2] + prompts[3])
             while not choice.upper() == "Q":
-                # check to make sure valid Ability entered
-                abilities = list()
-                for ability in self.abilities:
-                    abilities.append(ability.name)
-                while choice not in abilities:
+                # check to make sure valid Ability/Armor entered
+                names_of_powers = list()
+                for power in list_to_change:
+                    names_of_powers.append(ability.name)
+                while choice not in names_of_powers:
                     choice = input(prompts[4])
-                else:  # valid Ability entered
-                    index = self.capture_index(choice, "Ability")
-                    current_obj = self.abilities[index]
+                else:  # valid object entered
+                    index = self.capture_index(choice, power_type)
+                    current_obj = list_to_change[index]
                     op_choice = input("What would you like to change? \n" +
                                       prompts[5] +
                                       prompts[6] +
@@ -220,79 +244,24 @@ class Hero:
                         new_name = input("Please enter a new name: ")
                         # replaces Ability object
                         new_obj = Ability(new_name, current_obj.max_damage)
-                        self.abilities[index] = new_obj
-                        assert new_name = self.abilities[index].name, (
+                        list_to_change[index] = new_obj
+                        assert new_name = list_to_change[index].name, (
                             "Name change failed!")
                         divide()
                     elif op_choice.upper() == "A":
                         new_stren = input("Enter a new attack strength: ")
-                        self.abilities[index] = Ability(choice, new_stren)
+                        list_to_change[index] = Ability(choice, new_stren)
                         err_msg = "Attack strength change failed!"
-                        assert new_stren = self.abilities[index].max_damage, (
+                        assert new_stren = list_to_change[index].max_damage, (
                             err_msg)
                         divide()
                     elif op_choice.upper() == "D":
-                        self.abilities.pop(index)
+                        list_to_change.pop(index)
                         print(prompts[8])  # print removal message
                         divide()
                     else:
                         print("Sorry, that choice is invalid.")
-    """
-    def edit_weapons(self):
-        '''Prompts user for information and edits Weapons in self.abilites.'''
-        choice = input("Do you know the weapons of this Hero (Y/N)? ")
-        if not choice.lower() == "y":
-            # print all abilities
-            divide()
-            print("Here are the Weapons available for this Hero:")
-            for weapon in self.abilities:
-                if type(weapon) == Weapon:
-                    print(weapon.name)
-            divide()
-        else:
-            choice = input("Which Weapom would you like to change? \n" +
-                           "Enter the name here. Enter Q to finish: ")
-            while not choice.upper() == "Q":
-                # check to make sure valid Weapon entered
-                weapons = list()
-                for weapon in self.abilities:
-                    weapons.append(weapon.name)
-                while choice not in weapons:
-                    choice = input("Weapon not found. Please try again: ")
-                else:  # valid Weapon entered
-                    index = self.capture_index(choice, "Weapon")
-                    current_obj = self.abilities[index]
-                    op_choice = input("What would you like to change? \n" +
-                                      "N = name of Weapon \n" +
-                                      "A = attack strength of Weapon \n" +
-                                      "D = Delete this Weapon \n" +
-                                      "Please select one: ")
-                    if op_choice.upper() == "N":
-                        new_name = input("Please enter a new name: ")
-                        # replaces Weapon object
-                        new_obj = Weapon(new_name, current_obj.max_damage)
-                        self.abilities[index] = new_obj
-                        assert new_name = self.abilities[index].name, (
-                            "Name change failed!")
-                        divide()
-                    elif op_choice.upper() == "A":
-                        new_stren = input("Enter a new maximum damage: ")
-                        self.abilities[index] = Weapon(choice, new_stren)
-                        err_msg = "Damage level change failed!"
-                        assert new_stren = self.abilities[index].max_damage, (
-                            err_msg)
-                        divide()
-                    elif op_choice.upper() == "D":
-                        self.abilities.pop(index)
-                        print("Weapon has been removed!")
-                        divide()
-                    else:
-                        print("Sorry, that choice is invalid.")
 
-    def edit_armors(self):
-        '''Prompts user for information and adjusts self.armors.'''
-        pass
-    """
 
 class Weapon(Ability):
     def attack(self):
