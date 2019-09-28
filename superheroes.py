@@ -156,16 +156,17 @@ class Hero:
                 if name == armor.name:
                     return armor
 
-        def capture_index(self, name, object_type):
-            '''This function returns the index position where an
-               Ability/Weapon/Armor object stored in in respective list.
-            '''
-            if object_type == "Ability" or object_type == "Weapon":
-                for i in range(len(self.abilities)):
-                    if name == self.abilities[i].name:
-                        return i
-            elif object_type == "Armor":
+    def capture_index(self, name, object_type):
+        '''This function returns the index position where an
+           Ability/Weapon/Armor object stored in in respective list.
+        '''
+        if object_type == "Ability" or object_type == "Weapon":
+            for i in range(len(self.abilities)):
                 if name == self.abilities[i].name:
+                    return i
+        elif object_type == "Armor":
+            for i in range(len(self.armors)):
+                if name == self.armors[i].name:
                     return i
 
     def provide_prompts(self, obj_type, plural):
@@ -579,7 +580,3 @@ if __name__ == "__main__":
                         arena.edit_team(arena.team_one)
                     elif team_choice == arena.team_two.name:
                         arena.edit_team(arena.team_two)
-                else:
-                    # TODO: ask user if they would like to end game
-                    # TODO: make it so user can save game state
-                    pass
