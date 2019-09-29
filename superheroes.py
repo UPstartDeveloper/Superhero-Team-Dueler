@@ -265,15 +265,15 @@ class Hero:
 
 # a Hero that can steal Abilities or Armors from other heroes
 class Thief(Hero):
-    def steal(other_hero):
+    def steal(self, other_hero):
         '''A function to take an Ability, Weapon, or Armor from another Hero.
            Param: other_hero(Hero)
            Return: None
         '''
         if not len(other_hero.abilities) == 0:
             stolen = other_hero.abilities[0]
-            other_hero.abilites.pop(0)
-            self.abilites.append(stolen)
+            other_hero.abilities.pop(0)
+            self.abilities.append(stolen)
         elif not len(other_hero.armors) == 0:
             stolen = other_hero
         else:
@@ -332,6 +332,10 @@ class Team:
         hero = self.heroes[random.randint(0, max_index)]
         max_index = len(other_team.heroes) - 1
         enemy = other_team.heroes[random.randint(0, max_index)]
+
+        # if the hero is a Thief, steal from the enemy before the fight
+        if type(hero) == Thief:
+            hero.steal(enemy)
 
         hero.fight(enemy)
 
@@ -424,11 +428,11 @@ class Arena:
            one for adding Abilities, Weapons, and Armors to the Hero.
         '''
         # loop for prompting abilities
-        self.prompt_for(new_hero, "ability")
+        self.prompt_for(hero, "ability")
         # loop for prompting weapons
-        self.prompt_for(new_hero, "weapon")
+        self.prompt_for(hero, "weapon")
         # loop for prompting armors
-        self.prompt_for(new_hero, "armor")
+        self.prompt_for(hero, "armor")
 
     def create_hero(self):
         '''Prompt user for Hero information
