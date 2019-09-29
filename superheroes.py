@@ -271,9 +271,11 @@ class Thief(Hero):
            Return: None
         '''
         if not len(other_hero.abilities) == 0:
-            pass
+            stolen = other_hero.abilities[0]
+            other_hero.abilites.pop(0)
+            self.abilites.append(stolen)
         elif not len(other_hero.armors) == 0:
-            pass
+            stolen = other_hero
         else:
             print(f"{self.hero} cannot steal from {other_hero.name}")
 
