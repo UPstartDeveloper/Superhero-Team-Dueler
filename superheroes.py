@@ -263,6 +263,21 @@ class Hero:
                     print("Sorry, that choice is invalid.")
 
 
+# a Hero that can steal Abilities or Armors from other heroes
+class Thief(Hero):
+    def steal(other_hero):
+        '''A function to take an Ability, Weapon, or Armor from another Hero.
+           Param: other_hero(Hero)
+           Return: None
+        '''
+        if not len(other_hero.abilities) == 0:
+            pass
+        elif not len(other_hero.armors) == 0:
+            pass
+        else:
+            print(f"{self.hero} cannot steal from {other_hero.name}")
+
+
 class Weapon(Ability):
     def attack(self):
         """ This method returns a random value
