@@ -147,7 +147,7 @@ class Hero:
            Returns: type(object_type)
         '''
         # choose which of Hero's property lists to search
-        if object_type == "Ability" or "Weapon":
+        if object_type == "Ability" or object_type == "Weapon":
             for ability in self.abilities:
                 if name == ability.name:
                     return ability
