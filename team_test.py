@@ -412,3 +412,14 @@ def test_capture_index():
     # look for armor in self.armors, check index return value
     return_index = avenger.capture_index("Hulkbuster Suit", "Armor")
     assert return_index == 0, "Incorrect index value returned."
+
+
+def test_str_to_obj():
+    # make a Hero and equip with an Armor
+    avenger = superheroes.Hero("Iron Man")
+    armor = superheroes.Armor("Hulkbuster Suit", 900000)
+
+    avenger.add_armor(armor)
+    result = avenger.str_to_object("Hulkbuster Suit", "Armor")
+    # print(type(result))
+    assert type(result) == type(armor), "Incorrect object type returned."
