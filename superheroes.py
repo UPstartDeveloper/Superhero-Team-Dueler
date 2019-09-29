@@ -419,18 +419,31 @@ class Arena:
                 new_armor = self.create_armor()
                 hero.add_armor(new_armor)
 
-    def create_hero(self):
-        '''Prompt user for Hero information
-            return Hero with values from user input.
+    def prompt_all(self, hero):
+        '''A function to go through prompt_for 3 times,
+           one for adding Abilities, Weapons, and Armors to the Hero.
         '''
-        name = input("Enter a name for your new hero: ")
-        new_hero = Hero(name)
         # loop for prompting abilities
         self.prompt_for(new_hero, "ability")
         # loop for prompting weapons
         self.prompt_for(new_hero, "weapon")
         # loop for prompting armors
         self.prompt_for(new_hero, "armor")
+
+    def create_hero(self):
+        '''Prompt user for Hero information
+            return Hero with values from user input.
+        '''
+        #  user can choose to make Hero a Thief
+        make_thief = input("Is this Hero able to steal(Y/N)? ")
+        if make_thief.lower() == "y":
+            name = input("Enter a name for your new hero: ")
+            new_hero = Thief(name)
+            self.prompt_all(new_hero)
+        else:
+            name = input("Enter a name for your new hero: ")
+            new_hero = Hero(name)
+            self.prompt_all(new_hero)
 
         return new_hero
 
