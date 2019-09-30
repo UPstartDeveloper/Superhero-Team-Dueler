@@ -267,12 +267,14 @@ class Hero:
 
     def check_all_powers(self):
         '''A function to remove unauthorized Abilities and Armors.'''
-        for i in range(len(self.abilities)):
-            if self.abilities[i].max_damage > 9000:
-                self.abilities.pop(i)
-        for i in range(len(self.armors)):
-            if self.armors[i].max_block > 9000:
-                self.armors.pop(i)
+        if len(self.abilities) >= 0:
+            for i in range(len(self.abilities)):
+                if self.abilities[i].max_damage > 9000:
+                    self.abilities.pop(i)
+        if len(self.armors) >= 0:
+            for i in range(len(self.armors)):
+                if self.armors[i].max_block > 9000:
+                    self.armors.pop(i)
 
 
 # a Hero that can steal Abilities or Armors from other heroes
