@@ -500,8 +500,31 @@ class Arena:
             self.team_two.add_hero(new_team_player)
             heroes_added += 1
 
+    def remove_unauthorized(self, team_number):
+        """Removes any propoerties from Heroes which are above 9000."""
+        heroes_list = list()
+        if team_number == 1:
+            heroes_list = self.team_one.heroes
+        elif team_number == 2:
+            heroes_list = self.team_two.heroes
+        # remove unauthorized abilities and weapons
+        for hero in heroes_list_one:
+            for i in range(len(hero.abilites)):
+                if hero.abilities[i].max_damage > 9000:
+                    hero.abilities[i].pop(i)
+        # remove unauthorized armors
+        for hero in heroes_list_one:
+            for i in range(len(hero.armors)):
+                if hero.armors[i].max_block > 9000:
+                    hero.armors[i].pop(i)
+
     def team_battle(self):
         '''Battle team_one and team_two together.'''
+        # remove all unauthorized Abilities, Weapons, or Armors from Team One
+        self.remove_unauthorized(1)
+        # repeat for Team Two
+        self.remove_unauthorized(2)
+
         self.team_one.attack(self.team_two)
 
     def show_stats(self):
