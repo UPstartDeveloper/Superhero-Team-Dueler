@@ -286,10 +286,18 @@ class Thief(Hero):
             stolen = other_hero.abilities[0]
             other_hero.abilities.pop(0)
             self.abilities.append(stolen)
-        elif not len(other_hero.armors) == 0:
-            stolen = other_hero
         else:
-            print(f"{self.hero} cannot steal from {other_hero.name}")
+            divide()
+            print(f"{self.hero} cannot steal armors from {other_hero.name}")
+            divide()
+        if not len(other_hero.armors) == 0:
+            stolen = other_hero.armors[0]
+            other_hero.armors.pop(0)
+            self.armors.append(stolen)
+        else:
+            divide()
+            print(f"{self.hero} cannot steal armors from {other_hero.name}")
+            divide()
 
 
 class Weapon(Ability):
@@ -339,9 +347,10 @@ class Team:
     # methods for teams to attack/defend
     def attack(self, other_team):
         '''Battle each team against one another.'''
-        # Randomly selects a Hero from each team
+        # Randomly selects a Hero from this team
         max_index = len(self.heroes) - 1  # last index position in heroes list
         hero = self.heroes[random.randint(0, max_index)]
+        # Randomly selects a Hero from this team
         max_index = len(other_team.heroes) - 1
         enemy = other_team.heroes[random.randint(0, max_index)]
 
