@@ -265,6 +265,16 @@ class Hero:
                 else:
                     print("Sorry, that choice is invalid.")
 
+    def check_all_powers(self):
+        '''A function to remove unauthorized Abilities and Armors.'''
+        for i in range(len(self.abilities)):
+            if self.abilities[i].max_damage > 9000:
+                list_of_powers.pop(i)
+        for i in range(len(self.armors)):
+            if self.armors[i].max_block > 9000:
+                list_of_powers.pop(i)
+        return list_of_powers
+
 
 # a Hero that can steal Abilities or Armors from other heroes
 class Thief(Hero):
@@ -507,16 +517,10 @@ class Arena:
             heroes_list = self.team_one.heroes
         elif team_number == 2:
             heroes_list = self.team_two.heroes
-        # remove unauthorized abilities and weapons
-        for hero in heroes_list_one:
-            for i in range(len(hero.abilites)):
-                if hero.abilities[i].max_damage > 9000:
-                    hero.abilities[i].pop(i)
-        # remove unauthorized armors
-        for hero in heroes_list_one:
-            for i in range(len(hero.armors)):
-                if hero.armors[i].max_block > 9000:
-                    hero.armors[i].pop(i)
+        # check every Hero on the Team
+        for hero in heroes_list:
+            # remove unauthoized Abilitiies and Weapons
+            hero.check_all_powers()
 
     def team_battle(self):
         '''Battle team_one and team_two together.'''
