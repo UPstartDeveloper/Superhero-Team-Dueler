@@ -211,7 +211,7 @@ class Hero:
             # print all abilities
             divide()
             print(prompts[1])
-            list_to_change = list()  # stores self.abilities or self.armors
+        list_to_change = list()  # stores self.abilities or self.armors
             if power_type == "Ability" or power_type == "Weapon":
                 list_to_change = self.abilities
             elif power_type == "Armor":
