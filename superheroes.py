@@ -8,14 +8,16 @@ def divide():
 
 # Classes for Superhero Game
 class Ability:
-    def __init__(self, name, attack_strength):
+    def __init__(self, name, attack_strength, clearance):
         """
         Parameters:
         name (String)
         max_damage(Integer)
+        clearance(bool)
         """
         self.name = name
         self.max_damage = attack_strength
+        self.clearance = clearance
 
     def attack(self):
         """
@@ -28,7 +30,7 @@ class Ability:
 
 
 class Armor:
-    def __init__(self, name, max_block):
+    def __init__(self, name, max_block, clearance):
         """
         Parameters:
         name (String)
@@ -36,6 +38,7 @@ class Armor:
         """
         self.name = name
         self.max_block = max_block
+        self.clearance = clearance
 
     def block(self):
         """Returns a random integer between 0 and max_block strength."""
