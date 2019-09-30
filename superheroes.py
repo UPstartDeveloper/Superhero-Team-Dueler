@@ -380,29 +380,41 @@ class Arena:
         self.team_one = None
         self.team_two = None
 
-    def create_ability(self):
-        '''Prompt for Ability information.
-            return Ability with values from user Input.
+    def create_powers(self, obj_type):
+        '''Prompt for Ability/Weapon/Armor information.
+           Param: obj_type(str) - ability, weapon, or armor
+           Return: appropiate object with values from user input.
         '''
-        name = input("Enter the name for your new ability: ")
-        strength = int(input("Enter the attack strength: "))
-        return Ability(name, strength)
-
-    def create_weapon(self):
-        '''Prompt user for Weapon information.
-            return Weapon with values from user input.
-        '''
-        name = input("Enter the name of the new weapon: ")
-        strength = input("Enter the strength: ")
-        return Weapon(name, int(strength))
-
-    def create_armor(self):
-        '''Prompt user for Armor information.
-            return Armor with values from user input.
-        '''
-        name = input("Enter the name of your new armor: ")
-        block = int(input("Enter the blocking power: "))
-        return Armor(name, block)
+        divide()
+        name = input(f"Enter the name for your new {obj_type}: ")
+        strength_prompt = ""
+        if obj_type == "armor":
+            strength_prompt = ("Enter the blocking power. \n" +
+                               "All armors below 9000 are authorized: ")
+        else:
+            strength_prompt = ("Enter attack power. \n" +
+                               "All attacks below 9000 are authorized: ")
+        strength = int(input(strength_prompt))
+        # decide if new object is authorized based on strength
+        authorized = True
+        if strength > 9000:
+            authorized = False
+            divide()
+            warning = input(f"WARNING! This {obj_type} is over 9000. \n" +
+                            "Unauthorized powers will be removed.\n" +
+                            "Do you wish to proceed (Y/N)? ")
+            if warning.lower() == "n":
+                strength = int(input("Please enter a new value: "))
+            divide()
+            if strength <= 9000:
+                authorized = True
+        # choose which type of object to return
+        if obj_type == "ability":
+            return Ability(name, strength, authorized)
+        elif obj_type == "weapon":
+            return Weapon(name, strength, authorized)
+        elif obj_type == "armor":
+            return Armor(name, strength, authorized)
 
     def prompt_for(self, hero, attribute):
         '''Helper function for create_hero(). Continually prompts user for
@@ -417,13 +429,13 @@ class Arena:
         while not (choice == "N" or choice == "n"):
             choice = input(f"Would you like to add a new {attribute} (Y/N)?")
             if (choice == "Y" or choice == "y") and attribute == "ability":
-                new_ability = self.create_ability()
+                new_ability = self.create_powers("ability")
                 hero.add_ability(new_ability)
             elif (choice == "Y" or choice == "y") and attribute == "weapon":
-                new_weapon = self.create_weapon()
+                new_weapon = self.create_powers("weapon")
                 hero.add_ability(new_weapon)
             elif (choice == "Y" or choice == "y") and attribute == "armor":
-                new_armor = self.create_armor()
+                new_armor = self.create_powers("armor")
                 hero.add_armor(new_armor)
 
     def prompt_all(self, hero):
