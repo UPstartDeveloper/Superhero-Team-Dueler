@@ -269,11 +269,10 @@ class Hero:
         '''A function to remove unauthorized Abilities and Armors.'''
         for i in range(len(self.abilities)):
             if self.abilities[i].max_damage > 9000:
-                list_of_powers.pop(i)
+                self.abilities.pop(i)
         for i in range(len(self.armors)):
             if self.armors[i].max_block > 9000:
-                list_of_powers.pop(i)
-        return list_of_powers
+                self.armors.pop(i)
 
 
 # a Hero that can steal Abilities or Armors from other heroes
