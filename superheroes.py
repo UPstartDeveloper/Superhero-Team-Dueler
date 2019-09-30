@@ -207,11 +207,11 @@ class Hero:
             prompts = self.provide_prompts("Armor", "Armors")
 
         choice = input(prompts[0])
+        list_to_change = list()  # stores self.abilities or self.armors
         if choice.lower() == "n":  # user doesn't know all abilities
             # print all abilities
             divide()
             print(prompts[1])
-        list_to_change = list()  # stores self.abilities or self.armors
             if power_type == "Ability" or power_type == "Weapon":
                 list_to_change = self.abilities
             elif power_type == "Armor":
