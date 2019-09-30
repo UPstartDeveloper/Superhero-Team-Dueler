@@ -8,16 +8,14 @@ def divide():
 
 # Classes for Superhero Game
 class Ability:
-    def __init__(self, name, attack_strength, clearance):
+    def __init__(self, name, attack_strength):
         """
         Parameters:
         name (String)
         max_damage(Integer)
-        clearance(bool)
         """
         self.name = name
         self.max_damage = attack_strength
-        self.clearance = clearance
 
     def attack(self):
         """
@@ -30,7 +28,7 @@ class Ability:
 
 
 class Armor:
-    def __init__(self, name, max_block, clearance):
+    def __init__(self, name, max_block):
         """
         Parameters:
         name (String)
@@ -38,7 +36,6 @@ class Armor:
         """
         self.name = name
         self.max_block = max_block
-        self.clearance = clearance
 
     def block(self):
         """Returns a random integer between 0 and max_block strength."""
@@ -298,7 +295,7 @@ class Thief(Hero):
             self.armors.append(stolen)
         else:
             divide()
-            print(f"{self.hero} cannot steal armors from {other_hero.name}")
+            print(f"{self.name} cannot steal armors from {other_hero.name}")
             divide()
 
 
@@ -499,6 +496,7 @@ class Arena:
         '''
         heroes_added = 0
         while heroes_added < int(team_size):
+            divide()
             new_team_player = self.create_hero()
             self.team_one.add_hero(new_team_player)
             heroes_added += 1
@@ -622,6 +620,7 @@ class Arena:
                                      "A = hero's abilites \n" +
                                      "W = hero's weapons \n" +
                                      "AR = hero's armors \n" +
+                                     "T = make Hero a Thief \n" +
                                      "Please enter your choice: ")
             if attribute_choice == "A":
                 hero_choice.edit_powers("Ability")
@@ -629,6 +628,8 @@ class Arena:
                 hero_choice.edit_powers("Weapon")
             elif attribute_choice == "AR":
                 hero_choice.edit_powers("Armor")
+            elif attribute_choice == "T":
+                hero_choice = Thief(hero_choice.name)
 
 
 if __name__ == "__main__":
@@ -641,6 +642,7 @@ if __name__ == "__main__":
     arena.build_team_two()
 
     while game_is_running:
+        divide()
         arena.team_battle()
         arena.show_stats()
         play_again = input("Play Again? Y or N: ")
