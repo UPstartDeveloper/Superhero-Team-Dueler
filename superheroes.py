@@ -427,11 +427,11 @@ class Arena:
                 authorized = True
         # choose which type of object to return
         if obj_type == "ability":
-            return Ability(name, strength, authorized)
+            return Ability(name, strength)
         elif obj_type == "weapon":
-            return Weapon(name, strength, authorized)
+            return Weapon(name, strength)
         elif obj_type == "armor":
-            return Armor(name, strength, authorized)
+            return Armor(name, strength)
 
     def prompt_for(self, hero, attribute):
         '''Helper function for create_hero(). Continually prompts user for
