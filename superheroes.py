@@ -287,7 +287,7 @@ class Thief(Hero):
             self.abilities.append(stolen)
         else:
             divide()
-            print(f"{self.hero} cannot steal armors from {other_hero.name}")
+            print(f"{self.name} cannot steal armors from {other_hero.name}")
             divide()
         if not len(other_hero.armors) == 0:
             stolen = other_hero.armors[0]
